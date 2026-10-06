@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand/logo-mark-wormear.svg" />
+    <meta name="theme-color" content="#FF6B4A" />
+    <meta property="og:image" content="/brand/logo-horizontal-wormear.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Set the theme before first paint: stored choice wins, else system preference.
+      // Prevents flashing the wrong mode on load.
+      try {
+        var t = localStorage.getItem('wormear-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t;
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', t === 'dark' ? '#201A40' : '#FBF3D3');
+      } catch (e) { /* defaults apply */ }
+    </script>
+    <meta
+      name="description"
+      content="Wormear turns people who wish they could play into people who actually play. Learn piano in 10-minute playful lessons with Melody the earthworm."
+    />
+    <title>Wormear — Learn piano by playing</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
