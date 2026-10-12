@@ -78,7 +78,6 @@ export default function OAuthButtons() {
   const nav = useNavigate();
   const buttonRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState('');
-  const [ready, setReady] = useState(false);
 
   const clientId = site.googleClientId;
 
@@ -132,14 +131,19 @@ export default function OAuthButtons() {
         try {
           window.google.accounts.id.initialize({ client_id: clientId, callback: onCredential });
           if (buttonRef.current) {
+            // Fit narrow cards (e.g. 320px phones): GSI takes a fixed pixel
+            // width, so measure the container instead of hardcoding 280.
+            const fit = Math.max(
+              220,
+              Math.min(320, Math.floor(buttonRef.current.clientWidth || 280)),
+            );
             window.google.accounts.id.renderButton(buttonRef.current, {
               theme: 'outline',
               size: 'large',
               shape: 'rectangular',
-              width: '280',
+              width: String(fit),
             });
           }
-          if (!cancelled) setReady(true);
         } catch {
           if (!cancelled) setError('Google sign-in failed to start. Please try again.');
         }
@@ -173,27 +177,9 @@ export default function OAuthButtons() {
     );
   }
 
-  const promptFallback = () => {
-    try {
-      window.google?.accounts.id.prompt();
-    } catch {
-      setError('Google sign-in failed to start. Please try again.');
-    }
-  };
-
   return (
     <div>
       <div ref={buttonRef} style={{ display: 'flex', justifyContent: 'center' }} />
-      {ready && (
-        <button
-          type="button"
-          className="btn btn-light btn-block"
-          style={{ marginTop: 8 }}
-          onClick={promptFallback}
-        >
-          Continue with Google
-        </button>
-      )}
       {error && (
         <p role="alert" className="small" style={{ color: '#b42318', fontWeight: 800, marginTop: 8 }}>
           {error}

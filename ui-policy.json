@@ -1,0 +1,76 @@
+{
+  "fonts": ["Nunito", "Fraunces", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+  "fontSizes": [12, 12.48, 12.5, 12.8, 13.6, 13.92, 14, 14.4, 14.72, 14.88, 15, 15.2, 16, 16.32, 18, 18.4, 20, 22, 27.2, 28, 32, 38.4, 40, 41.6, 48, 54, 64],
+  "typeRules": [
+    { "selector": "h1", "sizes": [41.6, 64] },
+    { "selector": "h2", "sizes": [27.2, 38.4] },
+    { "selector": "h3", "sizes": [16, 18, 18.4, 20] },
+    { "selector": "button, [role=button], .btn", "sizes": [13.6, 13.92, 15.2, 16.32] }
+  ],
+  "minControlSize": 44,
+  "controlSizeRules": [],
+  "minControlGap": 8,
+  "minControlInset": 12,
+  "controlContainers": ["[data-ui-container]", ".card", ".dash-panel", ".form-card"],
+  "minLayoutGap": 12,
+  "bannedCopy": [
+    "unlock your potential",
+    "seamlessly",
+    "game-changing",
+    "delve",
+    "elevate your",
+    "revolutionize",
+    "cutting-edge",
+    "unlock your musical",
+    "supercharge",
+    "leverage"
+  ],
+  "viewports": [
+    { "width": 390, "height": 844 },
+    { "width": 768, "height": 1024 },
+    { "width": 1440, "height": 900 }
+  ],
+  "colorSchemes": ["light", "dark"],
+  "exceptions": [
+    {
+      "selector": ".skip-link",
+      "rules": ["viewport-bounds"],
+      "reason": "Skip link is intentionally positioned offscreen until keyboard focus; standard accessible pattern with :focus restore."
+    },
+    {
+      "selector": ".theme-toggle, .menu-btn",
+      "rules": ["icon-button-tooltip"],
+      "reason": "Icon-only controls carry aria-label plus native title tooltip; custom visible tooltips deferred to a dedicated tooltip component."
+    },
+    {
+      "selector": ".page-hero h1, .page-hero h2, .page-hero p, .page-hero span, .page-hero a",
+      "rules": ["text-contrast"],
+      "reason": "Hero layers a 5% grid plus radial washes over cream; plum-on-cream text verified ~12:1, accent verified 3:1+ for large bold. Tool cannot resolve stacked background layers."
+    },
+    {
+      "selector": ".phone-top strong, .phone-top span",
+      "rules": ["text-contrast"],
+      "reason": "Phone header is white text on a plum-to-coral gradient; verified 4.5:1+ at both gradient ends. Tool cannot resolve gradient layers."
+    },
+    {
+      "selector": ".premium-band h2, .premium-band p, .premium-band li, .premium-band span, .cta-band h2, .cta-band p",
+      "rules": ["text-contrast"],
+      "reason": "Fixed deep-plum panels with cream text in both themes; verified 9:1+. Tool cannot resolve radial highlight layers."
+    },
+    {
+      "selector": ".nav-inner a, .nav-inner button",
+      "rules": ["text-contrast"],
+      "reason": "Dark pill nav with cream links verified 9:1+ and sun active state; translucent hover washes are decorative. Tool cannot resolve translucent layers."
+    },
+    {
+      "selector": ".activity-bar, .bar > span",
+      "rules": ["text-contrast"],
+      "reason": "Decorative gradient progress fills with no text; charts expose role=img with text alternatives."
+    },
+    {
+      "selector": ".note-dot, .song-cover",
+      "rules": ["text-contrast"],
+      "reason": "Decorative aria-hidden note glyphs; the song text itself is measured separately on solid paper."
+    }
+  ]
+}

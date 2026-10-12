@@ -3,7 +3,7 @@ import Mascot from './Mascot';
 
 export default function PhoneMockup() {
   return (
-    <div className="phone-stage" aria-label="Phone preview of the Wormear app">
+    <div className="phone-stage" role="img" aria-label="Phone preview of the Wormear app">
       <div className="float-card float-xp">
         <Lightning size={18} weight="fill" color="#3B1F5C" aria-hidden="true" /> +120 XP
       </div>

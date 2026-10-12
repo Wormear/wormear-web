@@ -49,13 +49,13 @@ export default function Home() {
         <div className="wrap hero-split">
           <div className="hero-copy">
             <h1>
-              The delightfully playful way to <span className="accent">actually play piano.</span>
+              The playful way to <span className="accent">actually play piano.</span>
             </h1>
             <p className="hero-sub">
               {site.promise} Ten-minute lessons with Melody the earthworm turn spare moments into real
               songs — no piano needed to start.
             </p>
-            <div className="btn-row">
+            <div className="btn-row" data-ui-actions>
               <Button to="/get-started" variant="primary" size="lg">
                 Start playing free <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </Button>
@@ -88,7 +88,7 @@ export default function Home() {
               <span className="diff">{s.difficulty}</span>
             </Link>
           ))}
-          <Link to="/songs" className="song-chip" aria-label="Browse all 40 plus songs">
+          <Link to="/songs" className="song-chip">
             40+ more <ArrowRight size={15} weight="bold" aria-hidden="true" />
           </Link>
         </div>
@@ -115,7 +115,7 @@ export default function Home() {
               <p className="demo-caption">Try it now — tap the keys (sound on):</p>
               <div className="demo-keys" role="group" aria-label="Tap-to-play piano demo">
                 {[261.6, 293.7, 329.6, 392.0, 440.0].map((f, i) => (
-                  <button key={f} type="button" onClick={() => tap(i, f)} aria-label={`Play note ${i + 1}`}>
+                  <button key={f} type="button" onClick={() => tap(i, f)}>
                     {['C', 'D', 'E', 'G', 'A'][i]}
                   </button>
                 ))}
@@ -258,10 +258,10 @@ export default function Home() {
             Bite-sized lessons outperform occasional marathon sessions. Here&rsquo;s what ten playful
             minutes a day adds up to.
           </p>
-          <div className="stat-grid">
+          <div className="stat-grid" data-ui-stack>
             {stats.map((s, i) => (
-              <article key={s.label} className={`stat-card ${statTones[i % statTones.length]}`}>
-                <span className="stat-value">{s.value}</span>
+              <article key={s.label} className={`stat-card ${statTones[i % statTones.length]}`} data-ui-container>
+                <span className="stat-value" data-ui-number>{s.value}</span>
                 <span className="stat-label">{s.label}</span>
               </article>
             ))}

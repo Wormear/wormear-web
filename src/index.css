@@ -109,7 +109,8 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background: var(--cream); }
+[data-theme="dark"] html { background: #201A40; }
 body {
   margin: 0;
   font-family: var(--font-ui);
@@ -136,20 +137,26 @@ a { color: var(--plum-deep); }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 .wrap-narrow { max-width: var(--max-narrow); margin: 0 auto; padding: 0 24px; }
-section.block { padding: 72px 0; }
-section.block-tight { padding: 48px 0; }
+section.block { padding: 88px 0; }
+section.block-tight { padding: 56px 0; }
 
-/* ---------- Type ---------- */
+/* ---------- Type — editorial, human-crafted ----------
+   Fraunces display for headlines (reference: confident serif/grotesk),
+   Nunito for UI/body. Tabular numerals for all stats/XP/prices. */
 .display {
   font-family: var(--font-display);
   font-weight: 900;
-  letter-spacing: -0.025em;
-  line-height: 1.02;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
 }
 h1, h2, h3 { letter-spacing: -0.015em; margin: 0 0 12px; line-height: 1.15; color: var(--plum); }
-h1 { font-family: var(--font-ui); font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 900; line-height: 1.08; }
-h2 { font-family: var(--font-ui); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 900; line-height: 1.15; }
+h1 { font-family: var(--font-display); font-size: clamp(2.6rem, 5.2vw, 4rem); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; }
+h2 { font-family: var(--font-display); font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
 h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
+/* Tabular figures keep XP / stats / prices from jittering */
+.stat-value, .dash-stat-value, .price, .lb-xp, .xp-badge, [data-ui-number] {
+  font-variant-numeric: tabular-nums lining-nums;
+}
 /* Accent headline in the reference's section-title voice */
 .accent { color: var(--accent); }
 .lede { color: var(--muted); font-size: 1.13rem; max-width: 62ch; }
@@ -232,8 +239,7 @@ h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
 [data-theme="dark"] .btn-ghost:hover { background: #332A5E; }
 [data-theme="dark"] .btn-white { background: transparent; color: #F1E9D2; border-color: #D8CDAF; box-shadow: 0 3px 0 #D8CDAF; }
 [data-theme="dark"] .btn-sun { color: #28194A; }
-[data-theme="dark"] .nav { background: rgba(32, 26, 64, 0.92); }
-[data-theme="dark"] .nav-links a.active { background: var(--sun); color: #28194A; }
+/* Pill nav stays deep-plum in both themes — no remap needed */
 [data-theme="dark"] .page-hero.home,
 [data-theme="dark"] .page-hero.songs,
 [data-theme="dark"] .page-hero.pricing-hero,
@@ -255,6 +261,8 @@ h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
 [data-theme="dark"] .stars { color: #D9A93C; }
 [data-theme="dark"] .compare-table thead th { background: #3A2E12; color: #FFC93C; }
 [data-theme="dark"] .chip-btn[aria-pressed="true"] { background: var(--sun); color: #28194A; border-color: var(--sun-deep); box-shadow: 0 2px 0 var(--sun-deep); }
+/* Amber pill on dark: soft amber text (verified 5:1 on sun-tint #3A2E12) */
+[data-theme="dark"] .pill.amber { color: #F2C879; border-color: var(--sun-deep); }
 [data-theme="dark"] .billing-toggle button[aria-pressed="true"] { background: var(--sun); color: #28194A; box-shadow: 0 2px 0 var(--sun-deep); }
 [data-theme="dark"] .stepper span.on { background: var(--sun); }
 [data-theme="dark"] .timeline article::before { border-color: var(--sun); }
@@ -276,7 +284,7 @@ h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
 /* Soft amber links instead of neon yellow; calm hovers */
 [data-theme="dark"] a { color: #F2C879; }
 [data-theme="dark"] .feature-link { color: #F2C879; }
-[data-theme="dark"] .nav-links a:hover { background: #332A5E; color: #F1E9D2; }
+[data-theme="dark"] .nav-links a:hover { background: rgba(255,255,255,0.14); color: #fff; }
 [data-theme="dark"] .btn-light:hover { color: #FBF6E6; }
 [data-theme="dark"] .crumbs a:hover { color: #F2C879; }
 
@@ -335,16 +343,17 @@ h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
 .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 .btn-row.tight { gap: 8px; }
 
-/* ---------- Cards & grids ---------- */
-.grid { display: grid; gap: 18px; }
+/* ---------- Cards & grids — three distinct voices, no generic stack ---------- */
+.grid { display: grid; gap: 20px; }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
 .card {
-  background: var(--paper); border: 1px solid var(--line);
-  border-radius: var(--radius-lg); padding: 24px;
-  box-shadow: var(--shadow-card);
+  background: var(--paper); border: 1.5px solid var(--line);
+  border-radius: 16px; padding: 22px;
+  box-shadow: 0 6px 20px rgba(59, 38, 101, 0.08);
 }
+.card-flat { box-shadow: none; border-width: 2px; }
 .card.lined { border-top: 5px solid var(--plum); }
 .card.sun-top { border-top: 5px solid var(--sun); }
 .card.coral-top { border-top: 5px solid var(--coral); }
@@ -375,14 +384,23 @@ h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
 .pill.plum { background: var(--plum); color: #fff; border-color: var(--plum-deep); }
 .pill.outline { background: var(--paper); border-color: var(--line-strong); color: var(--muted); }
 
-/* ---------- Navbar ---------- */
+/* ---------- Navbar — floating dark pill (reference: DashBite pill nav) ----------
+   Stable deep-plum pill in both themes; buttons inside are untouched. */
 .nav {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(251, 243, 211, 0.94); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  position: sticky; top: 12px; z-index: 50;
+  background: transparent; backdrop-filter: none;
+  border-bottom: 0;
+  padding: 0 16px;
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 70px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.28rem; color: var(--plum); text-decoration: none; letter-spacing: -0.02em; }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 62px;
+  max-width: var(--max); margin: 0 auto; padding: 0 12px 0 18px;
+  background: var(--plum-deep-solid);
+  border: 2px solid #140D2B; border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(40, 25, 74, 0.28);
+  color: #F8F2DF;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.28rem; color: #F8F2DF; text-decoration: none; letter-spacing: -0.02em; }
 /* Theme-aware logo: light-text artwork on dark theme, dark-text on light */
 .logo-swap { position: relative; flex: none; }
 .logo-swap img { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -399,23 +417,37 @@ h3 { font-family: var(--font-ui); font-size: 1.16rem; font-weight: 800; }
 }
 .nav-links { display: flex; gap: 2px; align-items: center; }
 .nav-links a {
-  text-decoration: none; color: var(--plum); font-weight: 800; font-size: 0.93rem;
-  padding: 12px 14px; border-radius: 10px;
+  text-decoration: none; color: #E4D9FF; font-weight: 800; font-size: 0.93rem;
+  padding: 10px 14px; border-radius: 999px;
   display: inline-flex; align-items: center; min-height: var(--min-touch);
 }
-.nav-links a:hover { background: var(--sun-tint); color: var(--plum-deep); }
-.nav-links a.active { background: var(--plum); color: #fff; }
+.nav-links a:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.nav-links a.active { background: var(--sun); color: #28194A; }
 .nav-cta { display: flex; gap: 10px; align-items: center; }
-.menu-btn { display: none; background: var(--paper); border: 1.5px solid var(--line-strong); border-radius: 12px; padding: 9px 12px; cursor: pointer; box-shadow: 0 2px 0 var(--line-strong); color: var(--plum); min-width: var(--min-touch); min-height: var(--min-touch); align-items: center; justify-content: center; }
+/* Ghost action inside the dark pill: cream text (verified 9:1 on plum-deep).
+   The button system itself is untouched — this is the pill's dark-surface remap. */
+.nav-cta .btn-ghost { color: #F8F2DF; }
+.nav-cta .btn-ghost:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.menu-btn { display: none; flex: none; background: rgba(255,255,255,0.10); border: 1.5px solid rgba(255,255,255,0.28); border-radius: 999px; padding: 9px 12px; cursor: pointer; box-shadow: none; color: #fff; min-width: var(--min-touch); min-height: var(--min-touch); align-items: center; justify-content: center; }
 
 /* ---------- Page heroes ---------- */
-.page-hero { padding: 56px 0 36px; position: relative; overflow: hidden; }
+.page-hero { padding: 64px 0 44px; position: relative; overflow: hidden; }
 .page-hero.home {
   background:
     radial-gradient(480px 240px at 12% 88%, var(--cream-deep) 0%, transparent 70%),
     radial-gradient(560px 280px at 88% 30%, var(--sun-tint) 0%, transparent 65%),
     var(--cream);
   border-bottom: 1px solid var(--line);
+}
+/* Subtle blueprint grid (reference: DashBite grid) painted as background
+   layers — not a pseudo overlay — so text contrast stays measurable. */
+.page-hero.home {
+  background-image:
+    linear-gradient(to right, rgba(59, 31, 92, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 31, 92, 0.055) 1px, transparent 1px),
+    radial-gradient(480px 240px at 12% 88%, var(--cream-deep) 0%, transparent 70%),
+    radial-gradient(560px 280px at 88% 30%, var(--sun-tint) 0%, transparent 65%);
+  background-size: 44px 44px, 44px 44px, auto, auto;
 }
 .page-hero.method { background: var(--plum-deep-solid); color: #F8F2DF; }
 .page-hero.method h1, .page-hero.method h2 { color: #F8F2DF; }
@@ -569,8 +601,8 @@ footer.site .brand { color: #F8F2DF; }
 .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 28px; }
 .foot-grid h4 { margin: 0 0 12px; font-size: 0.92rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sun); }
 .foot-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.foot-grid a { color: #D9CFF5; text-decoration: none; font-weight: 700; font-size: 0.94rem; }
-.foot-grid a:hover { color: var(--sun); text-decoration: underline; }
+.foot-grid nav a { color: #D9CFF5; text-decoration: none; font-weight: 700; font-size: 0.94rem; }
+.foot-grid nav a:hover { color: var(--sun); text-decoration: underline; }
 .foot-grid .muted { color: #B9AEE0 !important; }
 .foot-base { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.18); color: #B9AEE0; }
 .foot-base a { color: #D9CFF5; }
@@ -637,19 +669,20 @@ footer.site .brand { color: #F8F2DF; }
   clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* Theme toggle */
+/* Theme toggle — sits inside the dark pill, so always dark-chip */
 .theme-toggle {
   display: inline-flex; align-items: center; justify-content: center;
+  flex: none;
   width: var(--min-touch); height: var(--min-touch);
-  border-radius: 12px; cursor: pointer;
-  background: var(--paper); color: var(--plum);
-  border: 1.5px solid var(--line-strong);
-  box-shadow: 0 2px 0 var(--line-strong);
+  border-radius: 999px; cursor: pointer;
+  background: rgba(255,255,255,0.10); color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.28);
+  box-shadow: none;
 }
-.theme-toggle:hover { border-color: var(--plum); }
+.theme-toggle:hover { border-color: var(--sun); color: var(--sun); }
 .theme-toggle:active { transform: translateY(2px); box-shadow: none; }
 .theme-toggle:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-.form-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 28px; box-shadow: var(--shadow-card); }
+.form-card { background: var(--paper); border: 1.5px solid var(--line-strong); border-radius: 20px; padding: 28px; box-shadow: var(--shadow-card); }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .chip-btn {
   border: 2px solid var(--line-strong); background: var(--paper); border-radius: 999px;
@@ -679,11 +712,11 @@ footer.site .brand { color: #F8F2DF; }
 }
 
 /* Interactive piano demo — white keys + plum sharps like artwork */
-.demo-keys { display: flex; gap: 6px; user-select: none; }
+.demo-keys { display: flex; gap: 8px; user-select: none; }
 .demo-keys button {
   flex: 1; height: 92px; border-radius: 12px;
   border: 2px solid var(--line-strong); background: var(--paper); color: var(--plum);
-  font-weight: 900; cursor: pointer;
+  font-family: var(--font-ui); font-size: 0.95rem; font-weight: 900; cursor: pointer;
   box-shadow: 0 3px 0 var(--line-strong);
 }
 .demo-keys button:active, .demo-keys button.hit { background: var(--sun); border-color: var(--sun-deep); transform: translateY(2px); box-shadow: none; }
@@ -727,7 +760,7 @@ footer.site .brand { color: #F8F2DF; }
 .song-chip .diff { color: var(--muted); font-weight: 700; font-size: 0.78rem; }
 
 /* Alternating feature rows: accent headline + gray body, visual opposite */
-.feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 88px 0; }
+.feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 96px 0; }
 .feature-row + .feature-row { border-top: 1px solid var(--line); }
 .feature-row.flip .feature-text { order: 2; }
 .feature-kicker {
@@ -777,7 +810,7 @@ footer.site .brand { color: #F8F2DF; }
 .stat-card.tone-coral { border-top-color: var(--coral); }
 .stat-card.tone-sun { border-top-color: var(--sun); }
 .stat-card.tone-green { border-top-color: var(--success); }
-.stat-value { font-weight: 900; font-size: 2.4rem; letter-spacing: -0.02em; line-height: 1; display: block; }
+.stat-value { font-family: var(--font-display); font-weight: 900; font-size: 2.6rem; letter-spacing: -0.03em; line-height: 1; display: block; }
 .tone-plum .stat-value { color: var(--plum); }
 .tone-coral .stat-value { color: var(--accent); }
 .tone-sun .stat-value { color: var(--sun-deep); }
@@ -824,8 +857,8 @@ footer.site .brand { color: #F8F2DF; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .nav-links { display: none; }
   .nav-links.open {
-    display: flex; position: absolute; top: 70px; left: 12px; right: 12px;
-    background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
+    display: flex; position: absolute; top: 68px; left: 12px; right: 12px;
+    background: var(--plum-deep-solid); border: 2px solid #140D2B; border-radius: 20px;
     flex-direction: column; padding: 10px; box-shadow: var(--shadow-pop);
     align-items: stretch;
   }
@@ -841,6 +874,7 @@ footer.site .brand { color: #F8F2DF; }
   .float-pill.bottom { left: 0; }
   .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
+  .nav-cta .btn { display: none; }
   .nav-cta .btn-ghost { display: none; }
   .cta-band { padding: 40px 22px; }
   .page-hero { padding: 40px 0 28px; }

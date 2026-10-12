@@ -23,7 +23,7 @@ export default function Navbar() {
     <header className="nav">
       <div className="wrap nav-inner">
         <Link to="/" className="brand" aria-label="Wormear home">
-          <LogoHorizontal height={28} />
+          <LogoHorizontal height={28} tone="on-dark" />
         </Link>
         <nav className={`nav-links${open ? ' open' : ''}`} aria-label="Primary">
           {links.map((l) => (
@@ -47,7 +47,7 @@ export default function Navbar() {
                   <Link to="/login" className="btn btn-light btn-sm" onClick={() => setOpen(false)}>
                     Log in
                   </Link>
-                  <Link to="/get-started" className="btn btn-primary btn-sm" onClick={() => setOpen(false)}>
+                  <Link to="/get-started" className="btn btn-sun btn-sm" onClick={() => setOpen(false)}>
                     Start free
                   </Link>
                 </>
@@ -55,7 +55,7 @@ export default function Navbar() {
             </div>
           )}
         </nav>
-        <div className="nav-cta">
+        <div className="nav-cta" data-ui-actions>
           <button
             type="button"
             className="theme-toggle"
@@ -79,7 +79,7 @@ export default function Navbar() {
               <Link to="/login" className="btn btn-ghost btn-sm">
                 Log in
               </Link>
-              <Link to="/get-started" className="btn btn-primary btn-sm">
+              <Link to="/get-started" className="btn btn-sun btn-sm">
                 Start free
               </Link>
             </>
@@ -88,6 +88,7 @@ export default function Navbar() {
             className="menu-btn"
             aria-expanded={open}
             aria-label={open ? 'Close menu' : 'Open menu'}
+            title={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}

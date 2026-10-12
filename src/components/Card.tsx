@@ -8,7 +8,7 @@ interface CardProps {
 
 export default function Card({ title, children, pop = false }: CardProps) {
   return (
-    <article className={`card${pop ? ' plan-pop' : ''}`}>
+    <article className={`card${pop ? ' plan-pop' : ''}`} data-ui-container data-ui-content>
       {title ? <h3>{title}</h3> : null}
       {children}
     </article>

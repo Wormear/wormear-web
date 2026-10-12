@@ -29,7 +29,7 @@ const cols: { title: string; links: { label: string; to: string }[] }[] = [
       { label: 'Privacy', to: '/privacy' },
       { label: 'Terms', to: '/terms' },
       { label: 'Accessibility', to: '/support#accessibility' },
-      { label: 'Status: All systems playful', to: '/support' },
+      { label: 'System status', to: '/support' },
     ],
   },
 ];
@@ -43,7 +43,7 @@ export default function Footer() {
             <Link to="/" className="brand" aria-label="Wormear home">
               <LogoHorizontal height={30} tone="on-dark" />
             </Link>
-            <p className="muted small" style={{ maxWidth: 36 }}>
+            <p className="muted small" style={{ maxWidth: 320 }}>
               Turn people who wish they could play into people who actually play. Learn → Practice →
               Play → Progress → Repeat.
             </p>
